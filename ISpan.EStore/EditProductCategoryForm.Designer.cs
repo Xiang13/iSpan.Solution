@@ -41,7 +41,7 @@
 			this.saveButton.Location = new System.Drawing.Point(113, 127);
 			this.saveButton.Name = "saveButton";
 			this.saveButton.Size = new System.Drawing.Size(75, 23);
-			this.saveButton.TabIndex = 9;
+			this.saveButton.TabIndex = 2;
 			this.saveButton.Text = "保存";
 			this.saveButton.UseVisualStyleBackColor = true;
 			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
@@ -52,7 +52,7 @@
 			this.displayOrderTextBox.MaxLength = 4;
 			this.displayOrderTextBox.Name = "displayOrderTextBox";
 			this.displayOrderTextBox.Size = new System.Drawing.Size(172, 22);
-			this.displayOrderTextBox.TabIndex = 8;
+			this.displayOrderTextBox.TabIndex = 1;
 			// 
 			// label2
 			// 
@@ -60,7 +60,7 @@
 			this.label2.Location = new System.Drawing.Point(37, 87);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(59, 12);
-			this.label2.TabIndex = 7;
+			this.label2.TabIndex = 5;
 			this.label2.Text = "顯示順序: ";
 			// 
 			// nameTextBox
@@ -69,7 +69,7 @@
 			this.nameTextBox.MaxLength = 50;
 			this.nameTextBox.Name = "nameTextBox";
 			this.nameTextBox.Size = new System.Drawing.Size(172, 22);
-			this.nameTextBox.TabIndex = 6;
+			this.nameTextBox.TabIndex = 0;
 			// 
 			// label1
 			// 
@@ -77,7 +77,7 @@
 			this.label1.Location = new System.Drawing.Point(37, 36);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(59, 12);
-			this.label1.TabIndex = 5;
+			this.label1.TabIndex = 4;
 			this.label1.Text = "分類名稱: ";
 			// 
 			// DeleteButton
@@ -85,7 +85,7 @@
 			this.DeleteButton.Location = new System.Drawing.Point(210, 127);
 			this.DeleteButton.Name = "DeleteButton";
 			this.DeleteButton.Size = new System.Drawing.Size(75, 23);
-			this.DeleteButton.TabIndex = 9;
+			this.DeleteButton.TabIndex = 3;
 			this.DeleteButton.Text = "刪除";
 			this.DeleteButton.UseVisualStyleBackColor = true;
 			this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
