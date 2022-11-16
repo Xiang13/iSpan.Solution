@@ -1,8 +1,11 @@
-﻿using ISpan.EStore.Models.VIewModels;
+﻿using ISpan.EStore.InfraStructures;
+using ISpan.EStore.Models.Services;
+using ISpan.EStore.Models.VIewModels;
 using ISpan.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -33,16 +36,27 @@ namespace ISpan.EStore
 				Password = password,
 				Name = name
 			};
-			// 如果通過驗證, 就新增紀錄
-			string sql = @"INSERT INTO Users (Account, Password, Name)
-						VALUES(@Account, @Password, @Name)";
-			var parameters = new SqlParameterBuilder().AddNVarchar("Account", 50, model.Account)
-													  .AddNVarchar("Password", 50, model.Password)
-													  .AddNVarchar("Name", 50, model.Name)
-													  .Build();
-			new SqlDbHelper("default").ExecuteNonQuery(sql, parameters);
+			// 針對 viewModel 進行欄位驗證
+			// 大小寫不同仍視為相同的key
+			Dictionary<string, Control> map = new Dictionary<string, Control>(StringComparer.CurrentCultureIgnoreCase)
+			{
+				{"Account", accountTxtBox },
+				{"Password", passwordTxtBox },
+				{"Name", nameTxtBox },
+			};
+			bool isValid = ValidationHelper.Validate(model, map, errorProvider1);
+			if (!isValid) return;
 
-			this.DialogResult = DialogResult.OK;
+			// 如果通過驗證, 就新增紀錄
+			try
+			{
+				new UserService().Create(model);
+				this.DialogResult = DialogResult.OK;
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show($"新增失敗, 原因: {ex.Message}");
+			}
 		}
 	}
 }

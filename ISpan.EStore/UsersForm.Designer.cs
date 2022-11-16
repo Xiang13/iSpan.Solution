@@ -33,13 +33,12 @@
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.accountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.passwordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.userIndexVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.userVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.searchBtn = new System.Windows.Forms.Button();
-			this.categoryIdCombox = new System.Windows.Forms.ComboBox();
 			this.usersFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.userIndexVMBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.userVMBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersFormBindingSource)).BeginInit();
 			this.SuspendLayout();
@@ -63,9 +62,8 @@
 			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
             this.accountDataGridViewTextBoxColumn,
-            this.passwordDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn});
-			this.dataGridView1.DataSource = this.userVMBindingSource;
+			this.dataGridView1.DataSource = this.userIndexVMBindingSource;
 			this.dataGridView1.Location = new System.Drawing.Point(55, 104);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
@@ -88,13 +86,6 @@
 			this.accountDataGridViewTextBoxColumn.Name = "accountDataGridViewTextBoxColumn";
 			this.accountDataGridViewTextBoxColumn.ReadOnly = true;
 			// 
-			// passwordDataGridViewTextBoxColumn
-			// 
-			this.passwordDataGridViewTextBoxColumn.DataPropertyName = "Password";
-			this.passwordDataGridViewTextBoxColumn.HeaderText = "Password";
-			this.passwordDataGridViewTextBoxColumn.Name = "passwordDataGridViewTextBoxColumn";
-			this.passwordDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
 			// nameDataGridViewTextBoxColumn
 			// 
 			this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
@@ -102,28 +93,13 @@
 			this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
 			this.nameDataGridViewTextBoxColumn.ReadOnly = true;
 			// 
+			// userIndexVMBindingSource
+			// 
+			this.userIndexVMBindingSource.DataSource = typeof(ISpan.EStore.Models.VIewModels.UserIndexVM);
+			// 
 			// userVMBindingSource
 			// 
 			this.userVMBindingSource.DataSource = typeof(ISpan.EStore.Models.VIewModels.UserVM);
-			// 
-			// searchBtn
-			// 
-			this.searchBtn.Location = new System.Drawing.Point(208, 45);
-			this.searchBtn.Name = "searchBtn";
-			this.searchBtn.Size = new System.Drawing.Size(75, 34);
-			this.searchBtn.TabIndex = 1;
-			this.searchBtn.Text = "搜尋";
-			this.searchBtn.UseVisualStyleBackColor = true;
-			// 
-			// categoryIdCombox
-			// 
-			this.categoryIdCombox.DisplayMember = "CategoryName";
-			this.categoryIdCombox.FormattingEnabled = true;
-			this.categoryIdCombox.Location = new System.Drawing.Point(55, 53);
-			this.categoryIdCombox.Name = "categoryIdCombox";
-			this.categoryIdCombox.Size = new System.Drawing.Size(120, 20);
-			this.categoryIdCombox.TabIndex = 0;
-			this.categoryIdCombox.ValueMember = "Id";
 			// 
 			// usersFormBindingSource
 			// 
@@ -136,11 +112,10 @@
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.addNewBtn);
 			this.Controls.Add(this.dataGridView1);
-			this.Controls.Add(this.searchBtn);
-			this.Controls.Add(this.categoryIdCombox);
 			this.Name = "UsersForm";
-			this.Text = "檢視紀錄";
+			this.Text = "檢視使用者紀錄";
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.userIndexVMBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.userVMBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.usersFormBindingSource)).EndInit();
 			this.ResumeLayout(false);
@@ -151,13 +126,11 @@
 
 		private System.Windows.Forms.Button addNewBtn;
 		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.Button searchBtn;
-		private System.Windows.Forms.ComboBox categoryIdCombox;
 		private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn accountDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn passwordDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
 		private System.Windows.Forms.BindingSource userVMBindingSource;
 		private System.Windows.Forms.BindingSource usersFormBindingSource;
+		private System.Windows.Forms.BindingSource userIndexVMBindingSource;
 	}
 }

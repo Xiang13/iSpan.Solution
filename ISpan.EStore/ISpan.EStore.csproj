@@ -89,6 +89,21 @@
     <Compile Include="EditUserForm.Designer.cs">
       <DependentUpon>EditUserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfraStructures\ValidationHelper.cs" />
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\UserService.cs" />
+    <Compile Include="Models\VIewModels\LoginVM.cs" />
     <Compile Include="Models\VIewModels\ProductCategoryVM.cs" />
     <Compile Include="Models\VIewModels\ProductIndexVM.cs" />
     <Compile Include="Models\VIewModels\UserIndexVM.cs" />
@@ -131,6 +146,12 @@
     <EmbeddedResource Include="EditUserForm.resx">
       <DependentUpon>EditUserForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProductCategoriesForm.resx">
       <DependentUpon>ProductCategoriesForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,6 +173,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ISpan.EStore.Models.VIewModels.ProductCategoryVM.datasource" />
     <None Include="Properties\DataSources\ISpan.EStore.Models.VIewModels.ProductIndexVM.datasource" />
+    <None Include="Properties\DataSources\ISpan.EStore.Models.VIewModels.UserIndexVM.datasource" />
     <None Include="Properties\DataSources\ISpan.EStore.Models.VIewModels.UserVM.datasource" />
     <None Include="Properties\DataSources\UsersForm.datasource" />
     <None Include="Properties\Settings.settings">

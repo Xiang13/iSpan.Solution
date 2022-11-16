@@ -1,4 +1,6 @@
-﻿using ISpan.EStore.Models.VIewModels;
+﻿using ISpan.EStore.InfraStructures;
+using ISpan.EStore.Models.Services;
+using ISpan.EStore.Models.VIewModels;
 using ISpan.Utility;
 using System;
 using System.Collections.Generic;
@@ -75,50 +77,49 @@ namespace ISpan.EStore
 			// 將它們繫結到 ViewModel
 			UserVM model = new UserVM
 			{
+				Id = this.id,
 				Account = account,
 				Password = password,
 				Name = name
 			};
-			//// 針對 ViewModel 進行欄位驗證
-			//string errorMsg = string.Empty;
-			//if (string.IsNullOrEmpty(model.ProductName)) errorMsg += "商品名稱必填\r\n";
-			//if (listPrice < 0) errorMsg += "牌價必須為大於或等於零的整數\r\n";
-			//if (string.IsNullOrEmpty(errorMsg) == false)
-			//{
-			//	// 表示至少有一欄有錯誤
-			//	MessageBox.Show(errorMsg);
-			//	return; // 不再向下執行
-			//			// }
 
-				// 如果通過驗證, 就新增紀錄
-				string sql = @"UPDATE Users SET Account=@Account, Password=@Password, Name=@Name
-							WHERE Id=@Id";
+			// 如果通過驗證, 就新增紀錄
+			// 針對 viewModel 進行欄位驗證
+			// 大小寫不同仍視為相同的key
+			Dictionary<string, Control> map = new Dictionary<string, Control>(StringComparer.CurrentCultureIgnoreCase)
+			{
+				{"Account", accountTxtBox },
+				{"Password", passwordTxtBox },
+				{"Name", nameTxtBox },
+			};
+			bool isValid = ValidationHelper.Validate(model, map, errorProvider1);
+			if (!isValid) return;
 
-			var parameters = new SqlParameterBuilder().AddNVarchar("Account", 50, model.Account)
-														.AddNVarchar("Password", 50, model.Password)
-														.AddNVarchar("Name", 50, model.Name)
-														.AddInt("Id", this.id)
-														.Build();
-			new SqlDbHelper("default").ExecuteNonQuery(sql, parameters);
-
-			this.DialogResult = DialogResult.OK;
+			// 如果通過驗證, 就新增紀錄
+			try
+			{
+				new UserService().Edit(model);
+				this.DialogResult = DialogResult.OK;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"新增失敗, 原因: {ex.Message}");
+			}
 		}
 
 		private void DeleteButton_Click(object sender, EventArgs e)
 		{
-			if (MessageBox.Show("您真的要刪除嗎?", "刪除紀錄", MessageBoxButtons.YesNo,
-														   MessageBoxIcon.Question)
-														  != DialogResult.Yes)
+			UserVM model = new UserVM
 			{
-				return;
-			}
-			string sql = @"DELETE FROM Users WHERE Id=@Id";
-			var parameters = new SqlParameterBuilder().AddInt("Id", this.id)
-													  .Build();
-
-			new SqlDbHelper("default").ExecuteNonQuery(sql, parameters);
-
+				Id = this.id,
+			};
+				new UserService().Delete(model);
 			this.DialogResult = DialogResult.OK;
+		}
+
+		private void EditUserForm_Load(object sender, EventArgs e)
+		{
+			BindData(id);
 		}
 	}
 }
