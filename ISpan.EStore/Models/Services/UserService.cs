@@ -27,16 +27,16 @@ namespace ISpan.EStore.Models.Services
 		/// 傳回所有使用者紀錄
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerable<UserIndexVM> GetAll()
-		{
-			string sql = @"SELECT U.Id, U.Account, U.Name
-						   FROM  Users U";
-			var dbHelper = new SqlDbHelper("default");
-			return dbHelper.Select(sql, null)
-								.AsEnumerable()
-								.Select(row => ParseToIndexVM(row));
-								// .ToList();
-		}
+		//public IEnumerable<UserIndexVM> GetAll()
+		//{
+		//	string sql = @"SELECT U.Id, U.Account, U.Name
+		//				   FROM  Users U";
+		//	var dbHelper = new SqlDbHelper("default");
+		//	return dbHelper.Select(sql, null)
+		//						.AsEnumerable()
+		//						.Select(row => ParseToIndexVM(row));
+		//						// .ToList();
+		//}
 		public UserIndexVM ParseToIndexVM(DataRow row)
 		{
 			return new UserIndexVM

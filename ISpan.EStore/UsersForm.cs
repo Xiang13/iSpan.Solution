@@ -1,4 +1,6 @@
-﻿using ISpan.EStore.Models.Services;
+﻿using ISpan.EStore.InfraStructures.DAOs;
+using ISpan.EStore.Models.DTOs;
+using ISpan.EStore.Models.Services;
 using ISpan.EStore.Models.VIewModels;
 using ISpan.Utility;
 using System;
@@ -23,14 +25,16 @@ namespace ISpan.EStore
 			InitializeComponent();
 			DisplayUsers();
 		}
-		private void BinData(UserIndexVM[] data)
+		private void BindData(UserIndexVM[] data)
 		{
 			dataGridView1.DataSource = data;
 		}		
 		private void DisplayUsers()
 		{
-			users = new UserService().GetAll().ToArray();
-			BinData(users);
+			users = new UserDAO().GetAll()
+						.Select(dto => dto.ToIndexVM())
+						.ToArray();
+			BindData(users);
 		}
 		private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
 		{

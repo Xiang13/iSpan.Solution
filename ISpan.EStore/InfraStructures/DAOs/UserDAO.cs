@@ -14,6 +14,17 @@ namespace ISpan.EStore.InfraStructures.DAOs
 {
 	public class UserDAO
 	{
+		public IEnumerable<UserDTO> GetAll()
+		{
+			string sql = @"SELECT * FROM Users ORDER BY ID";
+
+			var dbHelper = new SqlDbHelper("default");
+			// 存放在field裡, 稍後在 grid CellClick事件會需要再度用到它
+			return dbHelper.Select(sql, null)
+				.AsEnumerable()
+				.Select(row => ToUserDTO(row));
+
+		}
 		public void Create(UserDTO dto)
 		{
 			string sql = @"INSERT INTO Users (Account, Password, Name)
