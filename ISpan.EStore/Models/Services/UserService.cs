@@ -1,8 +1,11 @@
-﻿using ISpan.EStore.Models.VIewModels;
+﻿using ISpan.EStore.InfraStructures.DAOs;
+using ISpan.EStore.Models.DTOs;
+using ISpan.EStore.Models.VIewModels;
 using ISpan.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -14,6 +17,11 @@ namespace ISpan.EStore.Models.Services
 {
 	public class UserService
 	{
+		private UserDAO _dao;
+		public UserService()
+		{
+			_dao = new UserDAO();
+		}
 		private int id;
 		/// <summary>
 		/// 傳回所有使用者紀錄
@@ -39,41 +47,47 @@ namespace ISpan.EStore.Models.Services
 				Name = row.Field<string>("Name"),
 			};
 		}
-		public UserVM ToUserVM(DataRow row)
+		//public UserVM ToUserVM(DataRow row)
+		//{
+		//	return new UserVM
+		//	{
+		//		Id = row.Field<int>("Id"),
+		//		Account = row.Field<string>("Account"),
+		//		Password = row.Field<string>("Password"),
+		//		Name = row.Field<string>("Name"),
+		//	};
+		//}
+		public void Create(UserDTO dto)
 		{
-			return new UserVM
-			{
-				Id = row.Field<int>("Id"),
-				Account = row.Field<string>("Account"),
-				Password = row.Field<string>("Password"),
-				Name = row.Field<string>("Name"),
-			};
-		}
-		public void Create(UserVM model)
-		{
-			bool isExists = AccountExists(model.Account);
+			bool isExists = _dao.AccountExists(dto.Account);
 			if (isExists) throw new Exception("帳號已存在");
-			string sql = @"INSERT INTO Users (Account, Password, Name)
-						VALUES(@Account, @Password, @Name)";
-			var parameters = new SqlParameterBuilder().AddNVarchar("Account", 50, model.Account)
-													  .AddNVarchar("Password", 50, model.Password)
-													  .AddNVarchar("Name", 50, model.Name)
-													  .Build();
-			new SqlDbHelper("default").ExecuteNonQuery(sql, parameters);
+			#region 將 sql, parmeters 移到 UserDAO 裡
+			//string sql = @"INSERT INTO Users (Account, Password, Name)
+			//			VALUES(@Account, @Password, @Name)";
+			//var parameters = new SqlParameterBuilder().AddNVarchar("Account", 50, dto.Account)
+			//										  .AddNVarchar("Password", 50, dto.Password)
+			//										  .AddNVarchar("Name", 50, dto.Name)
+			//										  .Build();
+			//new SqlDbHelper("default").ExecuteNonQuery(sql, parameters);
+			#endregion
+			new UserDAO().Create(dto);
 		}
-		public void Edit(UserVM model)
+		public void Edit(UserDTO dto)
 		{
-			bool isExists = AccountExists(model.Account);
+			bool isExists = _dao.AccountExists(dto.Account);
 			if (isExists) throw new Exception("帳號已存在");
-			string sql = @"UPDATE Users SET Account=@Account, Password=@Password, Name=@Name
-							WHERE Id=@Id";
+			#region 將 sql, parmeters 移到 UserDAO 裡
+			//string sql = @"UPDATE Users SET Account=@Account, Password=@Password, Name=@Name
+			//				WHERE Id=@Id";
 
-			var parameters = new SqlParameterBuilder().AddNVarchar("Account", 50, model.Account)
-														.AddNVarchar("Password", 50, model.Password)
-														.AddNVarchar("Name", 50, model.Name)
-														.AddInt("Id", model.Id)
-														.Build();
-			new SqlDbHelper("default").ExecuteNonQuery(sql, parameters);
+			//var parameters = new SqlParameterBuilder().AddNVarchar("Account", 50, dto.Account)
+			//											.AddNVarchar("Password", 50, dto.Password)
+			//											.AddNVarchar("Name", 50, dto.Name)
+			//											.AddInt("Id", dto.Id)
+			//											.Build();
+			//new SqlDbHelper("default").ExecuteNonQuery(sql, parameters);
+			#endregion
+			new UserDAO().Edit(dto);
 		}
 		public void Delete(UserVM model)
 		{
@@ -83,39 +97,21 @@ namespace ISpan.EStore.Models.Services
 			{
 				return;
 			}
-			string sql = @"DELETE FROM Users WHERE Id=@Id";
-			var parameters = new SqlParameterBuilder().AddInt("Id", model.Id)
-													  .Build();
+			#region 將 sql, parmeters 移到 UserDAO 裡
+			//string sql = @"DELETE FROM Users WHERE Id=@Id";
+			//var parameters = new SqlParameterBuilder().AddInt("Id", model.Id)
+			//										  .Build();
 
-			new SqlDbHelper("default").ExecuteNonQuery(sql, parameters);
-		}
-		private bool AccountExists(string account)
-		{
-			string sql = @"Select Count(*) as count From Users WHERE Account=@Account";
-			var parameters = new SqlParameterBuilder().AddNVarchar("Account", 50, account)
-													  .Build();
-			DataTable data = new SqlDbHelper("default").Select(sql, parameters);
-			return data.Rows[0].Field<int>("count") > 0;
+			//new SqlDbHelper("default").ExecuteNonQuery(sql, parameters);
+			#endregion
+			new UserDAO().Delete(model.Id);
 		}
 		public bool Authenticate(LoginVM model)
 		{
-			var user = Get(model.Account);
+			var user = new UserDAO().Get(model.Account);
 			if (user == null) return false; // 找不到符合的帳號
 			return (user.Password == model.Password);
 		}
-		public UserVM Get(string account)
-		{
-			string sql = @"SELECT * FROM Users Where Account=@Account";
-			var parameters = new SqlParameterBuilder()
-									.AddNVarchar("Account", 50, account)
-									.Build();
-			var dbHelper = new SqlDbHelper("default").Select(sql, parameters);
-			if  (dbHelper.Rows.Count == 0)
-			{
-				return null;
-			}
-			// 將找到的一筆紀錄由 DataTable 轉換到 UserVM
-			return ToUserVM(dbHelper.Rows[0]);
-		}
+		
 	}
 }

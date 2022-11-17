@@ -1,4 +1,6 @@
 ﻿using ISpan.EStore.InfraStructures;
+using ISpan.EStore.InfraStructures.DAOs;
+using ISpan.EStore.Models.DTOs;
 using ISpan.EStore.Models.Services;
 using ISpan.EStore.Models.VIewModels;
 using ISpan.Utility;
@@ -30,43 +32,35 @@ namespace ISpan.EStore
 		}
 		private void BindData(int id)
 		{
-			string sql = "SELECt * FROM Users WHERE Id=@Id";
-			var parameters = new SqlParameterBuilder().AddInt("Id", id).Build();
+			#region
+			//string sql = "SELECt * FROM Users WHERE Id=@Id";
+			//var parameters = new SqlParameterBuilder().AddInt("Id", id).Build();
 
-			DataTable data = new SqlDbHelper("default").Select(sql, parameters);
-			if (data.Rows.Count == 0)
-			{
-				MessageBox.Show("抱歉, 找不到要編輯的資料");
-				this.DialogResult = DialogResult.OK;
+			//DataTable data = new SqlDbHelper("default").Select(sql, parameters);
+			//if (data.Rows.Count == 0)
+			//{
+			//	MessageBox.Show("抱歉, 找不到要編輯的資料");
+			//	this.DialogResult = DialogResult.OK;
 
-				// this.Close();
-				return;
-			}
-			else
-			{
-				// 將找到的一筆紀錄由 DataTable 轉換到 productVM
-				UserVM model = ToUserVM(data.Rows[0]);
+			//	// this.Close();
+			//	return;
+			//}
+			//else
+			//{
+			//	// 將找到的一筆紀錄由 DataTable 轉換到 productVM
+			//	UserVM model = ToUserVM(data.Rows[0]);
 
-				// 再將 ViewModel 值繫結到個控制項
-				//categoryIdComboBox.SelectedItem = ((List<ProductCategoryVM>)categoryIdComboBox.DataSource)
-				//								.FirstOrDefault(x => x.Id == model.CategoryId);
+			//	// 再將 ViewModel 值繫結到個控制項
+			//	//categoryIdComboBox.SelectedItem = ((List<ProductCategoryVM>)categoryIdComboBox.DataSource)
+			//	//								.FirstOrDefault(x => x.Id == model.CategoryId);
+			#endregion
+			UserDTO dto = new UserDAO().Get(id);
 
-				accountTxtBox.Text = model.Account;
-				passwordTxtBox.Text = model.Password;
-				nameTxtBox.Text = model.Name;
-			}
+			UserVM model = dto.ToVM();
+			accountTxtBox.Text = model.Account;
+			passwordTxtBox.Text = model.Password;
+			nameTxtBox.Text = model.Name;
 		}
-		private UserVM ToUserVM(DataRow row)
-		{
-			return new UserVM
-			{
-				Id = row.Field<int>("Id"),
-				Account = row.Field<string>("Account"),
-				Password = row.Field<string>("Password"),
-				Name = row.Field<string>("Name")
-			};
-		}
-
 		private void saveButton_Click(object sender, EventArgs e)
 		{
 			// 取得表單各欄位的值
@@ -96,9 +90,11 @@ namespace ISpan.EStore
 			if (!isValid) return;
 
 			// 如果通過驗證, 就新增紀錄
+			// 將 ViewModel 轉成 DTO
+			UserDTO dto = model.ToDTO();
 			try
 			{
-				new UserService().Edit(model);
+				new UserService().Edit(dto);
 				this.DialogResult = DialogResult.OK;
 			}
 			catch (Exception ex)

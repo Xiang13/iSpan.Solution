@@ -53,6 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ucGender.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ucGender.Designer.cs">
+      <DependentUpon>ucGender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\uchobby.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\uchobby.Designer.cs">
+      <DependentUpon>uchobby.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateProductCategoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +82,36 @@
     </Compile>
     <Compile Include="CreateUserForm.Designer.cs">
       <DependentUpon>CreateUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemoCheckBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemoCheckBox.Designer.cs">
+      <DependentUpon>DemoCheckBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemoGender.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemoGender.Designer.cs">
+      <DependentUpon>DemoGender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemoHobby.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemoHobby.Designer.cs">
+      <DependentUpon>DemoHobby.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemoRadioButtonList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemoRadioButtonList.Designer.cs">
+      <DependentUpon>DemoRadioButtonList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeomCheckListBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeomCheckListBox.Designer.cs">
+      <DependentUpon>DeomCheckListBox.cs</DependentUpon>
     </Compile>
     <Compile Include="EditProductCategoryForm.cs">
       <SubType>Form</SubType>
@@ -89,6 +131,7 @@
     <Compile Include="EditUserForm.Designer.cs">
       <DependentUpon>EditUserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfraStructures\DAOs\UserDAO.cs" />
     <Compile Include="InfraStructures\ValidationHelper.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -102,6 +145,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOs\UserDTO.cs" />
     <Compile Include="Models\Services\UserService.cs" />
     <Compile Include="Models\VIewModels\LoginVM.cs" />
     <Compile Include="Models\VIewModels\ProductCategoryVM.cs" />
@@ -128,6 +172,12 @@
     <Compile Include="UsersForm.Designer.cs">
       <DependentUpon>UsersForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\ucGender.resx">
+      <DependentUpon>ucGender.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\uchobby.resx">
+      <DependentUpon>uchobby.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateProductCategoryForm.resx">
       <DependentUpon>CreateProductCategoryForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,6 +186,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateUserForm.resx">
       <DependentUpon>CreateUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemoCheckBox.resx">
+      <DependentUpon>DemoCheckBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemoGender.resx">
+      <DependentUpon>DemoGender.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemoHobby.resx">
+      <DependentUpon>DemoHobby.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemoRadioButtonList.resx">
+      <DependentUpon>DemoRadioButtonList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeomCheckListBox.resx">
+      <DependentUpon>DeomCheckListBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditProductCategoryForm.resx">
       <DependentUpon>EditProductCategoryForm.cs</DependentUpon>
@@ -189,5 +254,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

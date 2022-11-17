@@ -1,4 +1,5 @@
 ﻿using ISpan.EStore.InfraStructures;
+using ISpan.EStore.Models.DTOs;
 using ISpan.EStore.Models.Services;
 using ISpan.EStore.Models.VIewModels;
 using ISpan.Utility;
@@ -48,9 +49,13 @@ namespace ISpan.EStore
 			if (!isValid) return;
 
 			// 如果通過驗證, 就新增紀錄
+			// 將 ViewModel 轉成 DTO
+			UserDTO dto = model.ToDTO();
+			
 			try
 			{
-				new UserService().Create(model);
+				// new UserService().Create(model);
+				new UserService().Create(dto);
 				this.DialogResult = DialogResult.OK;
 			}
 			catch(Exception ex)

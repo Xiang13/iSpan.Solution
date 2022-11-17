@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISpan.EStore.Models.DTOs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,5 +31,19 @@ namespace ISpan.EStore.Models.VIewModels
 
 		[Required(ErrorMessage = "姓名必填")]
 		public string Name { get; set; }
+	}
+	public static class UserVMExts
+	{
+		public static UserDTO ToDTO(this UserVM vm)
+		{
+			return new UserDTO
+			{
+				Id = vm.Id,
+				Account = vm.Account,
+				Password = vm.Password,
+				Name = vm.Name,
+			};
+
+		}
 	}
 }
